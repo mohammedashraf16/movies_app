@@ -7,6 +7,7 @@ class Assets {
   static const String imagesDora = 'assets/images/dora.png';
   static const String imagesHomeIcon = 'assets/images/home_icon.png';
   static const String imagesIconBrowse = 'assets/images/Icon_browse.png';
+  static const String imagesIconLocalMovies = 'assets/images/Icon_local_movies.png';
   static const String imagesIconMovies = 'assets/images/Icon-movies.png';
   static const String imagesIconWatchList = 'assets/images/Icon_watchList.png';
   static const String imagesLogo = 'assets/images/logo.png';
@@ -15,5 +16,6 @@ class Assets {
   static const String imagesPlayButton = 'assets/images/play-button.png';
   static const String imagesSearch = 'assets/images/Search.png';
   static const String imagesTypeMovies = 'assets/images/typeMovies.png';
+  static const String imagesYellowBookmark = 'assets/images/yellow_bookmark.png';
 
 }
