@@ -50,7 +50,7 @@ class SearchResultDelegate extends SearchDelegate {
           verticalDirection: VerticalDirection.down,
           children: [
             SizedBox(height: MediaQuery.of(context).size.height*.35),
-            Image.asset(Assets.imagesIconWatchList),
+            Image.asset(Assets.imagesIconLocalMovies),
             Text(
               "No movies found",
               style: Theme.of(context).textTheme.bodySmall,
