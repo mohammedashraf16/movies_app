@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/app_colors.dart';
+import 'package:movies_app/features/details/model/DetailsResponse.dart';
+
 
 class CustomContainerMovieType extends StatelessWidget {
-  const CustomContainerMovieType({super.key});
-
+  const CustomContainerMovieType({super.key, required this.genres,});
+final Genres genres;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,7 +17,7 @@ class CustomContainerMovieType extends StatelessWidget {
         borderRadius: BorderRadius.circular(5),
       ),
       child: Text(
-        "action",
+        genres.name??"",
         style: Theme.of(context).textTheme.bodySmall,
       ),
     );

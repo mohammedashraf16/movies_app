@@ -37,7 +37,8 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
           return CarouselSlider(
             options: CarouselOptions(
               height: height * .38,
-              enlargeCenterPage: false,
+              scrollPhysics: const PageScrollPhysics(),
+              enlargeCenterPage: true,
               autoPlay: true,
               animateToClosest: true,
               autoPlayCurve: Curves.fastOutSlowIn,

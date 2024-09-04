@@ -1,3 +1,4 @@
+
 class MovieModel {
   String id;
 
@@ -5,6 +6,8 @@ class MovieModel {
   String title;
   String date;
   String description;
+  String averageRate;
+  bool isSelected;
 
   MovieModel({
     this.id = "",
@@ -12,6 +15,8 @@ class MovieModel {
     required this.title,
     required this.date,
     required this.description,
+    required this.averageRate,
+     this.isSelected = false,
   });
 
   MovieModel.fromJson(Map<String, dynamic>json) :
@@ -21,6 +26,8 @@ class MovieModel {
         title: json["title"],
         date: json["date"],
         description: json["description"],
+        averageRate: json["averageRate"],
+        isSelected: json["isSelected"],
       );
 
   Map<String, dynamic> toJson() {
@@ -30,6 +37,8 @@ class MovieModel {
       "title": title,
       "date": date,
       "description": description,
+      "averageRate": averageRate,
+      "isSelected": isSelected,
     };
   }
 }

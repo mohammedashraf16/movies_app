@@ -64,31 +64,3 @@ class SearchResultDelegate extends SearchDelegate {
   }
 }
 
-// child: FutureBuilder(
-//   future: ApiManager.getSearchResponse(query: query),
-//   builder: (context, snapshot) {
-//     if (snapshot.connectionState == ConnectionState.waiting) {
-//       return const Center(child: CircularProgressIndicator());
-//     }
-//     if (snapshot.hasError) {
-//       return Center(child: Text('Error: ${snapshot.error}'));
-//     }
-//     if (!snapshot.hasData || snapshot.data?.results == null) {
-//       return const Center(child: Text('No suggestions found'));
-//     }
-//
-//     final results = snapshot.data!.results!;
-//     if(results.isEmpty){
-//       return const Center(child: Text('No suggestions found'));
-//     }
-//
-//     return ListView.builder(
-//       itemCount: results.length,
-//       itemBuilder: (context, index) {
-//         return CustomSearchItem(
-//           results: results[index],
-//         );
-//       },
-//     );
-//   },
-// ),

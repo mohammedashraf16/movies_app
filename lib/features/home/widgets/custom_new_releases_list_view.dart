@@ -62,6 +62,7 @@ class _CustomNewReleasesMoviesListViewState
                       itemCount: items.length,
                       itemBuilder: (context, index) {
                         return CustomNewReleasesMovieItem(
+
                           upComingResponse: UpComingResponse(),
                           results: items[index],
                         );

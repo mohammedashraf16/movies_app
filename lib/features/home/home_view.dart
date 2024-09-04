@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/app_colors.dart';
 import 'package:movies_app/features/home/tabs/browse/browse_tab.dart';
-import 'package:movies_app/features/home/tabs/home_tab.dart';
+import 'package:movies_app/features/home/tabs/home/home_tab.dart';
 import 'package:movies_app/features/home/tabs/search/search_tab.dart';
 import 'package:movies_app/features/home/tabs/watch_list/watch_list_tab.dart';
 import 'package:movies_app/generated/assets.dart';
@@ -52,7 +52,7 @@ class _HomeViewState extends State<HomeView> {
 
   List<Widget> tabs = [
     const HomeTab(),
-     SearchTab(),
+     const SearchTab(),
     const BrowseTab(),
     const WatchListTab(),
   ];

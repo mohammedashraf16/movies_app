@@ -3,6 +3,7 @@ import 'package:movies_app/app_colors.dart';
 import 'package:movies_app/core/constants/constants.dart';
 import 'package:movies_app/features/home/data/apis/api_manager.dart';
 import 'package:movies_app/features/home/data/models/GenreResponse.dart';
+import 'package:movies_app/generated/assets.dart';
 
 class DiscoverMovieView extends StatelessWidget {
   static const String routeName = "discover";
@@ -15,15 +16,18 @@ class DiscoverMovieView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Discover Movies",
+          "${model.name} Movies",
           style: Theme.of(context).textTheme.bodyLarge,
         ),
       ),
       body: FutureBuilder(
-        future: ApiManager.getDiscoverMovieResponse(model.id??0),
+        future: ApiManager.getDiscoverMovieResponse(model.id ?? 0),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(
+                child: CircularProgressIndicator(
+              color: AppColors.grayColor,
+            ));
           }
           if (snapshot.hasError) {
             return Text("Error: ${snapshot.error}");
@@ -46,7 +50,15 @@ class DiscoverMovieView extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Image.network("${Constants.imageUrl}${results[index].posterPath}",height: 200,),
+                       Stack(
+                         children: [
+                           Image.network(
+                             "${Constants.imageUrl}${results[index].posterPath}",
+                             height: 200,
+                           ),
+                           Image.asset(Assets.imagesBookmark),
+                         ],
+                       ),
                         Flexible(
                           child: Padding(
                               padding: const EdgeInsets.only(left: 10.0),
@@ -55,14 +67,18 @@ class DiscoverMovieView extends StatelessWidget {
                                 children: [
                                   Text(
                                     overflow: TextOverflow.ellipsis,
-                                    results[index].title??"",
+                                    results[index].title ?? "",
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodySmall
                                         ?.copyWith(color: Colors.white),
                                   ),
                                   const SizedBox(height: 10),
-                                  Text(results[index].releaseDate?.substring(0,10)??"",
+                                  Text(
+                                      results[index]
+                                              .releaseDate
+                                              ?.substring(0, 10) ??
+                                          "",
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodySmall
@@ -71,27 +87,39 @@ class DiscoverMovieView extends StatelessWidget {
                                   Text(
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
-                                    results[index].overview??"",
-                                    style: Theme.of(context).textTheme.bodySmall,
+                                    results[index].overview ?? "",
+                                    style:
+                                        Theme.of(context).textTheme.bodySmall,
                                   ),
                                   const SizedBox(height: 10),
                                   Row(
                                     children: [
-                                      const Icon(Icons.language,color: Colors.white,),
+                                      const Icon(
+                                        Icons.language,
+                                        color: Colors.white,
+                                      ),
                                       const SizedBox(width: 5),
                                       Text(
-                                        results[index].originalLanguage??"",
-                                        style: Theme.of(context).textTheme.bodyMedium,
+                                        results[index].originalLanguage ?? "",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium,
                                       ),
                                     ],
                                   ),
                                   const SizedBox(height: 10),
                                   Row(
                                     children: [
-                                      const Icon(Icons.star,color: AppColors.yellowColor),
+                                      const Icon(Icons.star,
+                                          color: AppColors.yellowColor),
                                       Text(
-                                        results[index].voteAverage.toString().substring(0,3),
-                                        style: Theme.of(context).textTheme.bodyMedium,
+                                        results[index]
+                                            .voteAverage
+                                            .toString()
+                                            .substring(0, 3),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium,
                                       ),
                                     ],
                                   ),
@@ -101,7 +129,9 @@ class DiscoverMovieView extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const Divider(color: AppColors.grayColor,)
+                  const Divider(
+                    color: AppColors.grayColor,
+                  )
                 ],
               );
             },

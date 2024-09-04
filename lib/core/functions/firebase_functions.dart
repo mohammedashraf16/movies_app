@@ -15,11 +15,22 @@ class FirebaseFunctions {
     );
   }
 
-  static Future<void> addMovie(MovieModel model) async {
+  static Future<void> addMovie(MovieModel? model) async {
     var collection = getMoviesCollection();
     var docRef = collection.doc();
-    model.id = docRef.id;
-    docRef.set(model);
+    model?.id = docRef.id;
+    docRef.set(model!);
   }
 
+  static Stream<QuerySnapshot<MovieModel>> getMovies() {
+    var collection = getMoviesCollection();
+    return collection.snapshots();
+  }
+
+  static Future<void> deleteMovie(String id) {
+    return getMoviesCollection().doc(id).delete();
+  }
+  static Future<void> updateMovie(MovieModel movieModel) {
+    return getMoviesCollection().doc(movieModel.id).update(movieModel.toJson());
+  }
 }

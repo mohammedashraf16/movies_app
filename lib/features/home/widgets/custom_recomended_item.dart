@@ -17,72 +17,79 @@ class CustomRecomendedItem extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20.0),
-      child: Container(
-        width: width * .3,
-        height: height,
-        decoration: BoxDecoration(
-          color: AppColors.secondaryColor,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: const [
-            BoxShadow(color: AppColors.primaryColor, offset: Offset(2, 4))
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Stack(
-              children: [
-                Image.network(
-                  height: height*.22,
-                  width: width,
-                  "${Constants.imageUrl}${results.posterPath}",
-                  fit: BoxFit.cover,
-                ),
-                Image.asset(Assets.imagesBookmark),
-              ],
-            ),
-            const SizedBox(height: 5),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 8.0,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+      child: Card(
+        child: Container(
+          width: width*.35,
+          decoration: BoxDecoration(
+            color: AppColors.secondaryColor,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: const [
+              BoxShadow(color: AppColors.primaryColor, offset: Offset(2, 4))
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Stack(
                 children: [
-                  const Icon(
-                    Icons.star,
-                    color: AppColors.yellowColor,
+                  ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                    ),
+                    child: Image.network(
+                      height: height * .22,
+                      width: width,
+                      "${Constants.imageUrl}${results.posterPath}",
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Text(results.voteAverage.toString().substring(0, 3)),
+                  Image.asset(Assets.imagesBookmark),
                 ],
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Text(
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-                results.title ?? "",
-                style: const TextStyle(fontSize: 14),
+              const SizedBox(height: 5),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8.0,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const Icon(
+                      Icons.star,
+                      color: AppColors.yellowColor,
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Text(results.voteAverage.toString().substring(0, 3)),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 5),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Text(
-                overflow: TextOverflow.ellipsis,
-                results.releaseDate ?? "",
-                style:
-                    const TextStyle(fontSize: 12, color: AppColors.grayColor),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text(
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  results.title ?? "",
+                  style: const TextStyle(fontSize: 14),
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-          ],
+              const SizedBox(height: 5),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text(
+                  overflow: TextOverflow.ellipsis,
+                  results.releaseDate ?? "",
+                  style:
+                      const TextStyle(fontSize: 12, color: AppColors.grayColor),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+            ],
+          ),
         ),
       ),
     );

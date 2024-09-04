@@ -7,8 +7,7 @@ import 'package:movies_app/generated/assets.dart';
 
 class DetailsView extends StatelessWidget {
   static const routeName = "details";
-   DetailsView({super.key});
-
+    const DetailsView({super.key});
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;

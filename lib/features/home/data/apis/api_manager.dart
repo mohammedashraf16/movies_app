@@ -64,17 +64,17 @@ class ApiManager {
   }
 
   static Future<SearchModel> getSearchResponse({required String query}) async {
-    // https://api.themoviedb.org/3/search/movie
-    Uri url = Uri.https(Constants.baseUrl, Constants.searchEndPoint);
-    http.Response response = await http.get(url, headers: {
-      'Authorization':
-          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyYjc0YmY3NDViYzZmZDVmY2ZiMTU5NzBkNzI4YzE2OSIsIm5iZiI6MTcyNDU3Nzk0Mi45NjcyMDMsInN1YiI6IjY2Y2FmMzM4ZTRkNzM0ZjhjZjc0OTljOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.isgcueYmOLQhXUAJNbi0m88kf1pCMjMA_sTK-dLZxzY',
-      'accept': 'application/json',
-      'query': query,
-    });
-    Map<String, dynamic> json = jsonDecode(response.body);
-    SearchModel searchResponse = SearchModel.fromJson(json);
-    return searchResponse;
+    Uri url = Uri.parse("https://api.themoviedb.org/3/search/movie?api_key=da6ff057b1fb87fab15bcd3d5693722f&query=$query)");
+    http.Response response = await http.get(url, headers:headers);
+    if(response.statusCode==200){
+      Map<String, dynamic> json = jsonDecode(response.body);
+      SearchModel searchResponse = SearchModel.fromJson(json);
+      return searchResponse;
+    }
+    else{
+      throw Exception('Failed to load search movies');
+    }
+
   }
 
   static Future<GenreResponse> getGenreResponse() async {
@@ -88,7 +88,9 @@ class ApiManager {
 
   static Future<DiscoverMovieResponse> getDiscoverMovieResponse( int id) async {
     // https://api.themoviedb.org/3/discover/movie
-    Uri url = Uri.https(Constants.baseUrl,Constants.discoverEndPoint);
+    Uri url = Uri.https(Constants.baseUrl,Constants.discoverEndPoint,{
+      'with_genres':id.toString()
+    });
     http.Response response=await http.get(url,headers: headers);
     Map<String,dynamic> json =jsonDecode(response.body);
     DiscoverMovieResponse discoverMovieResponse =DiscoverMovieResponse.fromJson(json);

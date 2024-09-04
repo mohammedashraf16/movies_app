@@ -19,7 +19,7 @@ class BuildSearchData extends StatelessWidget {
         future: ApiManager.getSearchResponse(query: query),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator(color: AppColors.secondaryColor,));
           }
           if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));

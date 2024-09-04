@@ -49,7 +49,7 @@ class CustomBrowseMovieGridView extends StatelessWidget {
                     Navigator.pushNamed(
                       context,
                       DiscoverMovieView.routeName,
-                      arguments:  genres,
+                      arguments:  genres[index],
                     );
                   },
                   child: Container(

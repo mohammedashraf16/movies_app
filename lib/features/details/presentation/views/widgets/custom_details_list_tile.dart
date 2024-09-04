@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/constants/constants.dart';
+import 'package:movies_app/core/functions/firebase_functions.dart';
 import 'package:movies_app/features/details/presentation/views/widgets/custom_details_shimmer_widget.dart';
 import 'package:movies_app/features/home/data/apis/api_manager.dart';
+import 'package:movies_app/features/home/tabs/watch_list/model/movie_model.dart';
 import 'package:movies_app/generated/assets.dart';
 
 import '../../../../../app_colors.dart';
@@ -26,6 +28,15 @@ class CustomDetailsLsiTile extends StatelessWidget {
             if (snapshot.hasError) {
               return Text("Error : ${snapshot.error}");
             }
+            var genres = snapshot.data?.genres;
+            var movieModel = MovieModel(
+              image: "${Constants.imageUrl}${snapshot.data?.posterPath ?? ""}",
+              title: snapshot.data?.title ?? "",
+              date: snapshot.data?.releaseDate ?? "",
+              description: snapshot.data?.overview ?? "",
+              averageRate:
+                  snapshot.data?.voteAverage.toString().substring(0, 3) ?? "",
+            );
             return Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -33,9 +44,20 @@ class CustomDetailsLsiTile extends StatelessWidget {
                   children: [
                     Image.network(
                         "${Constants.imageUrl}${snapshot.data?.posterPath ?? ""}",
-                        height: MediaQuery.of(context).size.height * .23,
                         width: MediaQuery.of(context).size.width * .3),
-                    Image.asset(Assets.imagesBookmark),
+                    InkWell(
+                      onTap: () {
+                        FirebaseFunctions.addMovie(movieModel).then(
+                          (value) {
+                            movieModel.isSelected = true;
+                            FirebaseFunctions.updateMovie(movieModel);
+                          },
+                        );
+                      },
+                      child: movieModel.isSelected
+                          ? Image.asset(Assets.imagesYellowBookmark)
+                          : Image.asset(Assets.imagesBookmark),
+                    ),
                   ],
                 ),
                 SizedBox(
@@ -45,21 +67,26 @@ class CustomDetailsLsiTile extends StatelessWidget {
                     title: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            CustomContainerMovieType(),
-                            CustomContainerMovieType(),
-                            CustomContainerMovieType(),
-                          ],
+                        SizedBox(
+                          height: 40,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: genres?.length,
+                            itemBuilder: (context, index) {
+                              return CustomContainerMovieType(
+                                genres: genres![index],
+                              );
+                            },
+                          ),
                         ),
-                        const CustomContainerMovieType(),
+                        const SizedBox(height: 10),
                         Text(
                           snapshot.data?.overview ?? "",
                           style: Theme.of(context).textTheme.bodyMedium,
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                         ),
+                        const SizedBox(height: 10),
                         Row(
                           children: [
                             const Icon(
@@ -72,7 +99,7 @@ class CustomDetailsLsiTile extends StatelessWidget {
                                       .toString()
                                       .substring(0, 3) ??
                                   "",
-                              style: Theme.of(context).textTheme.bodyLarge,
+                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 20),
                             )
                           ],
                         )
@@ -86,4 +113,3 @@ class CustomDetailsLsiTile extends StatelessWidget {
         ));
   }
 }
-
