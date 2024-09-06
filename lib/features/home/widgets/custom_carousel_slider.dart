@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:movies_app/app_colors.dart';
+import 'package:movies_app/core/generated/app_colors.dart';
 import 'package:movies_app/features/home/data/apis/api_manager.dart';
 import 'package:movies_app/features/home/data/models/popular_response.dart';
 import 'package:movies_app/features/home/widgets/custom_slidable_item.dart';
@@ -24,16 +24,17 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
-              child: Center(
-                  child: CircularProgressIndicator(
-                color: AppColors.secondaryColor,
-              )),
-            );
+                child: CircularProgressIndicator(
+              color: AppColors.secondaryColor,
+            ));
           }
           if (snapshot.hasError) {
             return Center(child: Text("Error: ${snapshot.error}"));
           }
           items = snapshot.data?.results ?? [];
+          // items.forEach((element) {
+          //   element.isSelected;
+          // },)
           return CarouselSlider(
             options: CarouselOptions(
               height: height * .38,

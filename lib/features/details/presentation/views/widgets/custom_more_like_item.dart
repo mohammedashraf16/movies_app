@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/app_colors.dart';
+import 'package:movies_app/core/generated/app_colors.dart';
 import 'package:movies_app/core/constants/constants.dart';
-import 'package:movies_app/features/home/data/models/more_like_response.dart';
-import 'package:movies_app/generated/assets.dart';
+import 'package:movies_app/features/home/data/models/popular_response.dart';
+import 'package:movies_app/features/home/widgets/custom_ink_well_item.dart';
 
 class CustomMoreLikeItem extends StatelessWidget {
   CustomMoreLikeItem({required this.model, super.key});
 
-  MoreLikeResults model;
+  Results model;
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +38,11 @@ class CustomMoreLikeItem extends StatelessWidget {
                     ),
                     child: Image.network(
                       "${Constants.imageUrl}${model.posterPath}",
-                      height: height * .22,
+                      height: height * .23,
                       width: width,
                       fit: BoxFit.cover,
                     )),
-                Image.asset(Assets.imagesBookmark),
+                CustomInkWellItem(results: model)
               ],
             ),
             const SizedBox(height: 10),

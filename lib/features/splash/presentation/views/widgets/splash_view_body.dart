@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/core/generated/assets.dart';
 import 'package:movies_app/features/home/home_view.dart';
-import 'package:movies_app/generated/assets.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});

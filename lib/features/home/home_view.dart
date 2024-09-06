@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/app_colors.dart';
+import 'package:movies_app/core/generated/app_colors.dart';
+import 'package:movies_app/core/generated/assets.dart';
 import 'package:movies_app/features/home/tabs/browse/browse_tab.dart';
 import 'package:movies_app/features/home/tabs/home/home_tab.dart';
 import 'package:movies_app/features/home/tabs/search/search_tab.dart';
 import 'package:movies_app/features/home/tabs/watch_list/watch_list_tab.dart';
-import 'package:movies_app/generated/assets.dart';
 
 class HomeView extends StatefulWidget {
   static const String routeName = "home";

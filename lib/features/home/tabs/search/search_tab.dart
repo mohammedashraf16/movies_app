@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/app_colors.dart';
+import 'package:movies_app/core/generated/app_colors.dart';
 import 'package:movies_app/features/home/tabs/search/widgets/search_result_deleget.dart';
 
 class SearchTab extends StatefulWidget {

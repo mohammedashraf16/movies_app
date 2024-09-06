@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/app_colors.dart';
+import 'package:movies_app/core/generated/app_colors.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CustomDetailsShimmerWidget extends StatelessWidget {

@@ -15,11 +15,11 @@ class FirebaseFunctions {
     );
   }
 
-  static Future<void> addMovie(MovieModel? model) async {
+  static Future<void> addMovie(MovieModel model) async {
     var collection = getMoviesCollection();
-    var docRef = collection.doc();
-    model?.id = docRef.id;
-    docRef.set(model!);
+    var docRef = collection.doc(model.title);
+    model.id = docRef.id;
+    docRef.set(model);
   }
 
   static Stream<QuerySnapshot<MovieModel>> getMovies() {
@@ -32,5 +32,9 @@ class FirebaseFunctions {
   }
   static Future<void> updateMovie(MovieModel movieModel) {
     return getMoviesCollection().doc(movieModel.id).update(movieModel.toJson());
+  }
+  static Future<bool> isMovieAdded(String title) async {
+    var doc = await getMoviesCollection().doc(title).get();
+    return doc.exists;
   }
 }

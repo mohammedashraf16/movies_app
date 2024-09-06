@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/constants/constants.dart';
-import 'package:movies_app/core/functions/firebase_functions.dart';
+import 'package:movies_app/core/generated/app_colors.dart';
 import 'package:movies_app/features/details/presentation/views/widgets/custom_details_shimmer_widget.dart';
 import 'package:movies_app/features/home/data/apis/api_manager.dart';
-import 'package:movies_app/features/home/tabs/watch_list/model/movie_model.dart';
-import 'package:movies_app/generated/assets.dart';
+import 'package:movies_app/features/home/data/models/popular_response.dart';
+import 'package:movies_app/features/home/widgets/custom_ink_well_item.dart';
 
-import '../../../../../app_colors.dart';
-import '../../../../home/data/models/up_coming_response.dart';
 import 'custom_container_movie_type.dart';
 
 class CustomDetailsLsiTile extends StatelessWidget {
@@ -29,35 +27,18 @@ class CustomDetailsLsiTile extends StatelessWidget {
               return Text("Error : ${snapshot.error}");
             }
             var genres = snapshot.data?.genres;
-            var movieModel = MovieModel(
-              image: "${Constants.imageUrl}${snapshot.data?.posterPath ?? ""}",
-              title: snapshot.data?.title ?? "",
-              date: snapshot.data?.releaseDate ?? "",
-              description: snapshot.data?.overview ?? "",
-              averageRate:
-                  snapshot.data?.voteAverage.toString().substring(0, 3) ?? "",
-            );
             return Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Stack(
                   children: [
                     Image.network(
-                        "${Constants.imageUrl}${snapshot.data?.posterPath ?? ""}",
+                        "${Constants.imageUrl}${snapshot.data?.posterPath ?? const Icon(
+                              Icons.error_outline_rounded,
+                              size: 50,
+                            )}",
                         width: MediaQuery.of(context).size.width * .3),
-                    InkWell(
-                      onTap: () {
-                        FirebaseFunctions.addMovie(movieModel).then(
-                          (value) {
-                            movieModel.isSelected = true;
-                            FirebaseFunctions.updateMovie(movieModel);
-                          },
-                        );
-                      },
-                      child: movieModel.isSelected
-                          ? Image.asset(Assets.imagesYellowBookmark)
-                          : Image.asset(Assets.imagesBookmark),
-                    ),
+                    CustomInkWellItem(results: model)
                   ],
                 ),
                 SizedBox(
@@ -99,7 +80,10 @@ class CustomDetailsLsiTile extends StatelessWidget {
                                       .toString()
                                       .substring(0, 3) ??
                                   "",
-                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 20),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(fontSize: 20),
                             )
                           ],
                         )

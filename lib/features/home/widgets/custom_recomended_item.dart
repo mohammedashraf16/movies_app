@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/app_colors.dart';
 import 'package:movies_app/core/constants/constants.dart';
+import 'package:movies_app/core/generated/app_colors.dart';
+import 'package:movies_app/features/home/data/models/popular_response.dart';
 import 'package:movies_app/features/home/data/models/recommending_response.dart';
-import 'package:movies_app/generated/assets.dart';
+import 'package:movies_app/features/home/widgets/custom_ink_well_item.dart';
 
 class CustomRecomendedItem extends StatelessWidget {
   CustomRecomendedItem(
@@ -44,7 +45,7 @@ class CustomRecomendedItem extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  Image.asset(Assets.imagesBookmark),
+                  CustomInkWellItem(results: results)
                 ],
               ),
               const SizedBox(height: 5),

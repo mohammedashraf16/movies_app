@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/constants/constants.dart';
 import 'package:movies_app/features/details/presentation/views/details_view.dart';
+import 'package:movies_app/features/home/data/models/popular_response.dart';
 import 'package:movies_app/features/home/data/models/up_coming_response.dart';
-import 'package:movies_app/generated/assets.dart';
+import 'package:movies_app/features/home/widgets/custom_ink_well_item.dart';
 
 class CustomNewReleasesMovieItem extends StatelessWidget {
   CustomNewReleasesMovieItem(
@@ -13,7 +14,7 @@ class CustomNewReleasesMovieItem extends StatelessWidget {
 
   UpComingResponse upComingResponse;
   final Results results;
-
+  bool isSelected = false;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -22,15 +23,11 @@ class CustomNewReleasesMovieItem extends StatelessWidget {
           InkWell(
               onTap: () {
                 Navigator.pushNamed(context, DetailsView.routeName,
-                    arguments: results);
+                    arguments:results);
               },
               child:
                   Image.network("${Constants.imageUrl}${results.posterPath}")),
-          InkWell(
-            onTap: () {
-            },
-            child: Image.asset(Assets.imagesBookmark),
-          ),
+          CustomInkWellItem(results:results)
         ],
       ),
     );

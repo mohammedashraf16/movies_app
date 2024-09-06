@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/core/generated/assets.dart';
 import 'package:movies_app/features/home/tabs/search/widgets/custom_search_list_view.dart';
-import 'package:movies_app/generated/assets.dart';
 
 class SearchResultDelegate extends SearchDelegate {
   SearchResultDelegate()
@@ -63,4 +63,3 @@ class SearchResultDelegate extends SearchDelegate {
     return BuildSearchData(query: query);
   }
 }
-

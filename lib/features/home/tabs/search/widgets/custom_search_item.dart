@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/app_colors.dart';
+import 'package:movies_app/core/generated/app_colors.dart';
 import 'package:movies_app/core/constants/constants.dart';
-import 'package:movies_app/features/home/tabs/search/model/SearchModel.dart';
-import 'package:movies_app/generated/assets.dart';
+import 'package:movies_app/features/home/data/models/popular_response.dart';
+import 'package:movies_app/features/home/widgets/custom_ink_well_item.dart';
 
 class CustomSearchItem extends StatelessWidget {
   const CustomSearchItem({
@@ -10,7 +10,7 @@ class CustomSearchItem extends StatelessWidget {
     required this.results,
   });
 
-  final SearchResults results;
+  final Results results;
 
   @override
   Widget build(BuildContext context) {
@@ -27,48 +27,64 @@ class CustomSearchItem extends StatelessWidget {
                 Stack(
                   children: [
                     Image.network(
-                      "${Constants.imageUrl}${results.posterPath}",
+                      errorBuilder: (context, error, stackTrace) {
+                        return const Icon(
+                          Icons.error,
+                          color: Colors.grey,
+                          size: 50,
+                        );
+                      },
+                      "${Constants.imageUrl}${results.posterPath ?? ""}",
                       height: MediaQuery.of(context).size.height * .16,
                     ),
-                    Image.asset(Assets.imagesBookmark)
+                    CustomInkWellItem(results: results),
                   ],
                 ),
-                Flexible(
+                Expanded(
                   child: Padding(
-                      padding: const EdgeInsets.only(left: 10.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            overflow: TextOverflow.ellipsis,
-                            results.title ?? "",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall
-                                ?.copyWith(color: Colors.white),
-                          ),
-                          const SizedBox(height: 10),
-                          Text(results.releaseDate?.substring(0, 10) ?? "",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(fontSize: 12)),
-                          const SizedBox(height: 10),
-                          Text(
-                            maxLines: 5,
-                            overflow: TextOverflow.ellipsis,
-                            results.overview ?? "",
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                        ],
-                      )),
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          overflow: TextOverflow.ellipsis,
+                          results.title ?? "Can't find title",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall
+                              ?.copyWith(color: Colors.white),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          maxLines: 5,
+                          overflow: TextOverflow.ellipsis,
+                          results.overview ?? "Can't find overview",
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                        const SizedBox(height: 10),
+                        Row(
+                          children: [
+                            Text(
+                              results.originalLanguage ?? "",
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                            const SizedBox(width: 5),
+                            const Icon(
+                              Icons.language,
+                              color: Colors.white,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
           const Divider(
             color: AppColors.grayColor,
-          )
+          ),
         ],
       ),
     );

@@ -70,6 +70,8 @@ class ApiManager {
       Map<String, dynamic> json = jsonDecode(response.body);
       SearchModel searchResponse = SearchModel.fromJson(json);
       return searchResponse;
+    }else if(response.statusCode==400){
+      throw Exception('Bad Request');
     }
     else{
       throw Exception('Failed to load search movies');

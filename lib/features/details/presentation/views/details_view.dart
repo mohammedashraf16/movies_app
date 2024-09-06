@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/constants/constants.dart';
+import 'package:movies_app/core/generated/assets.dart';
 import 'package:movies_app/features/details/presentation/views/widgets/custom_details_list_tile.dart';
 import 'package:movies_app/features/details/presentation/views/widgets/custom_more_like_list_view.dart';
-import 'package:movies_app/features/home/data/models/up_coming_response.dart';
-import 'package:movies_app/generated/assets.dart';
+
+import '../../../home/data/models/popular_response.dart';
 
 class DetailsView extends StatelessWidget {
   static const routeName = "details";

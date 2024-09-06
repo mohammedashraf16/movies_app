@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/app_colors.dart';
+import 'package:movies_app/core/generated/app_colors.dart';
 import 'package:movies_app/features/home/data/apis/api_manager.dart';
 import 'package:movies_app/features/home/tabs/search/widgets/custom_search_item.dart';
 
@@ -19,7 +19,9 @@ class BuildSearchData extends StatelessWidget {
         future: ApiManager.getSearchResponse(query: query),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator(color: AppColors.secondaryColor,));
+            return const Center(
+              child: CircularProgressIndicator(color: AppColors.secondaryColor),
+            );
           }
           if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
@@ -28,7 +30,7 @@ class BuildSearchData extends StatelessWidget {
             return const Center(child: Text('No results found'));
           }
 
-          final results = snapshot.data!.results!;
+          final results = snapshot.data?.results??[];
           if (results.isEmpty) {
             return const Center(child: Text('No suggestions found'));
           }
@@ -36,6 +38,9 @@ class BuildSearchData extends StatelessWidget {
           return ListView.builder(
             itemCount: results.length,
             itemBuilder: (context, index) {
+              if (index >= results.length) {
+                return const SizedBox(); // Placeholder to prevent index out of bounds
+              }
               return CustomSearchItem(results: results[index]);
             },
           );

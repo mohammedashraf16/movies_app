@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/app_colors.dart';
+import 'package:movies_app/core/generated/app_colors.dart';
 import 'package:movies_app/features/home/data/apis/api_manager.dart';
+import 'package:movies_app/features/home/data/models/popular_response.dart';
 import 'package:movies_app/features/home/widgets/custom_new_releases_item.dart';
 
 import '../data/models/up_coming_response.dart';
